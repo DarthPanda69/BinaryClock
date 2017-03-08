@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorBackground"
+    tools:context="de.rub.lafaag.binaryclock.MainActivity">
+
+    <TextView
+        android:id="@+id/hours1"
+        android:layout_width="@dimen/clock_hours_size"
+        android:layout_height="@dimen/clock_hours_size"
+        android:background="@color/clockHours"
+        android:layout_alignBottom="@+id/hours4"
+        android:layout_toEndOf="@+id/hours2"
+        android:layout_marginStart="27dp" />
+
+    <TextView
+        android:id="@+id/hours2"
+        android:layout_width="@dimen/clock_hours_size"
+        android:layout_height="@dimen/clock_hours_size"
+        android:background="@color/clockHours"
+        android:layout_alignBottom="@+id/hours4"
+        android:layout_toEndOf="@+id/hours4"
+        android:layout_marginStart="27dp" />
+
+    <TextView
+        android:id="@+id/hours4"
+        android:layout_width="@dimen/clock_hours_size"
+        android:layout_height="@dimen/clock_hours_size"
+        android:background="@color/clockHours"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/minutes1"/>
+
+    <TextView
+        android:id="@+id/hours8"
+        android:layout_width="@dimen/clock_hours_size"
+        android:layout_height="@dimen/clock_hours_size"
+        android:background="@color/clockHours"
+        android:layout_alignBottom="@+id/hours4"
+        android:layout_toStartOf="@+id/hours4"
+        android:layout_marginEnd="27dp" />
+
+    <TextView
+        android:id="@+id/hours16"
+        android:layout_width="@dimen/clock_hours_size"
+        android:layout_height="@dimen/clock_hours_size"
+        android:background="@color/clockHours"
+        android:layout_alignBottom="@+id/hours4"
+        android:layout_toStartOf="@+id/hours8"
+        android:layout_marginEnd="27dp" />
+
+    <TextView
+        android:layout_width="@dimen/clock_minutes_size"
+        android:layout_height="@dimen/clock_minutes_size"
+        android:layout_marginTop="50dp"
+        android:id="@+id/minutes1"
+        android:background="@color/clockMinutes"
+        android:layout_toEndOf="@id/hours1"
+        android:layout_marginStart="4dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:layout_width="@dimen/clock_minutes_size"
+        android:layout_height="@dimen/clock_minutes_size"
+        android:layout_marginTop="50dp"
+        android:id="@+id/minutes2"
+        android:background="@color/clockMinutes"
+        android:layout_toEndOf="@id/hours2"
+        android:layout_marginStart="4dp"
+        android:layout_alignBottom="@id/minutes1"/>
+
+    <TextView
+        android:layout_width="@dimen/clock_minutes_size"
+        android:layout_height="@dimen/clock_minutes_size"
+        android:layout_marginTop="50dp"
+        android:id="@+id/minutes4"
+        android:background="@color/clockMinutes"
+        android:layout_toEndOf="@id/hours4"
+        android:layout_marginStart="4dp"
+        android:layout_alignBottom="@id/minutes1"/>
+
+    <TextView
+        android:layout_width="@dimen/clock_minutes_size"
+        android:layout_height="@dimen/clock_minutes_size"
+        android:layout_marginTop="50dp"
+        android:id="@+id/minutes8"
+        android:background="@color/clockMinutes"
+        android:layout_toStartOf="@id/hours4"
+        android:layout_marginEnd="4dp"
+        android:layout_alignBottom="@id/minutes1"/>
+
+    <TextView
+        android:layout_width="@dimen/clock_minutes_size"
+        android:layout_height="@dimen/clock_minutes_size"
+        android:layout_marginTop="50dp"
+        android:id="@+id/minutes16"
+        android:background="@color/clockMinutes"
+        android:layout_toStartOf="@id/hours8"
+        android:layout_marginEnd="4dp"
+        android:layout_alignBottom="@id/minutes1"/>
+
+    <TextView
+        android:layout_width="@dimen/clock_minutes_size"
+        android:layout_height="@dimen/clock_minutes_size"
+        android:layout_marginTop="50dp"
+        android:id="@+id/minutes32"
+        android:background="@color/clockMinutes"
+        android:layout_toStartOf="@id/hours16"
+        android:layout_marginEnd="4dp"
+        android:layout_alignBottom="@id/minutes1"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:id="@+id/seconds"
+        android:layout_below="@+id/minutes2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:max="600"
+        android:progressDrawable="@drawable/progress_bar" />
+
+</RelativeLayout>
