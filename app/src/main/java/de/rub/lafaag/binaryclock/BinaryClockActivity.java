@@ -107,19 +107,21 @@ public class BinaryClockActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 4 total pages.
+            return 4;
         }
 
         @Override
-        public CharSequence getPageTitle(int position) {
+        public CharSequence getPageTitle(int position) { // Selection Text
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "Timer";
                 case 1:
-                    return "SECTION 2";
+                    return "Clock";
                 case 2:
-                    return "SECTION 3";
+                    return "Alarm";
+                case 3:
+                    return "About LaFaaG";
             }
             return null;
         }
