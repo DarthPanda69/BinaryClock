@@ -49,35 +49,50 @@ public class BinaryClockFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_binary_clock, container, false);
 
-        hours = new TextView[5];
-        minutes = new TextView[6];
+        if(getArguments().getInt(ARG_SECTION_NUMBER)==1) {
+            View rootView = inflater.inflate(R.layout.fragment_binary_timer, container, false);
+            return rootView;
+        }
+        else if (getArguments().getInt(ARG_SECTION_NUMBER)==2) {
 
-        hours[0] = (TextView) rootView.findViewById(R.id.hours1);
-        hours[1] = (TextView) rootView.findViewById(R.id.hours2);
-        hours[2] = (TextView) rootView.findViewById(R.id.hours4);
-        hours[3] = (TextView) rootView.findViewById(R.id.hours8);
-        hours[4] = (TextView) rootView.findViewById(R.id.hours16);
+            View rootView = inflater.inflate(R.layout.fragment_binary_clock, container, false);
 
-        minutes[0] = (TextView) rootView.findViewById(R.id.minutes1);
-        minutes[1] = (TextView) rootView.findViewById(R.id.minutes2);
-        minutes[2] = (TextView) rootView.findViewById(R.id.minutes4);
-        minutes[3] = (TextView) rootView.findViewById(R.id.minutes8);
-        minutes[4] = (TextView) rootView.findViewById(R.id.minutes16);
-        minutes[5] = (TextView) rootView.findViewById(R.id.minutes32);
+            hours = new TextView[5];
+            minutes = new TextView[6];
 
-        seconds = (ProgressBar)rootView.findViewById(R.id.seconds);
+            hours[0] = (TextView) rootView.findViewById(R.id.hours1);
+            hours[1] = (TextView) rootView.findViewById(R.id.hours2);
+            hours[2] = (TextView) rootView.findViewById(R.id.hours4);
+            hours[3] = (TextView) rootView.findViewById(R.id.hours8);
+            hours[4] = (TextView) rootView.findViewById(R.id.hours16);
 
-        appTimer = new Timer(false);
-        appTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                applyClockState(ClockState.getCurrentClockState());
-            }
-        }, 0, 100);
+            minutes[0] = (TextView) rootView.findViewById(R.id.minutes1);
+            minutes[1] = (TextView) rootView.findViewById(R.id.minutes2);
+            minutes[2] = (TextView) rootView.findViewById(R.id.minutes4);
+            minutes[3] = (TextView) rootView.findViewById(R.id.minutes8);
+            minutes[4] = (TextView) rootView.findViewById(R.id.minutes16);
+            minutes[5] = (TextView) rootView.findViewById(R.id.minutes32);
 
-        return rootView;
+            seconds = (ProgressBar) rootView.findViewById(R.id.seconds);
+
+            appTimer = new Timer(false);
+            appTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    applyClockState(ClockState.getCurrentClockState());
+                }
+            }, 0, 100);
+
+            return rootView;
+        }
+        else if (getArguments().getInt(ARG_SECTION_NUMBER)==3) {
+            View rootView = inflater.inflate(R.layout.fragment_binary_alarm, container, false);
+            return rootView;
+        }
+        else {
+            return null;
+        }
     }
 
     private void applyClockState(final ClockState toApply) {
