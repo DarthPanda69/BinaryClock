@@ -1,4 +1,4 @@
-package de.rub.lafaag.binaryclock;
+package de.rub.lafaag.binaryclock.fragments;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import de.rub.lafaag.binaryclock.ClockState;
+import de.rub.lafaag.binaryclock.R;
 
 /**
  * Created by In_Vino_Veritas on 08.03.2017.

@@ -1,4 +1,4 @@
-package layout;
+package de.rub.lafaag.binaryclock.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,12 +13,12 @@ import de.rub.lafaag.binaryclock.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BinaryTimerFragment.OnFragmentInteractionListener} interface
+ * {@link BinaryAlarmFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BinaryTimerFragment#newInstance} factory method to
+ * Use the {@link BinaryAlarmFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BinaryTimerFragment extends Fragment {
+public class BinaryAlarmFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +30,7 @@ public class BinaryTimerFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public BinaryTimerFragment() {
+    public BinaryAlarmFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +40,11 @@ public class BinaryTimerFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BinaryTimerFragment.
+     * @return A new instance of fragment BinaryAlarmFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BinaryTimerFragment newInstance(String param1, String param2) {
-        BinaryTimerFragment fragment = new BinaryTimerFragment();
+    public static BinaryAlarmFragment newInstance(String param1, String param2) {
+        BinaryAlarmFragment fragment = new BinaryAlarmFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,7 +65,7 @@ public class BinaryTimerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_binary_timer, container, false);
+        return inflater.inflate(R.layout.fragment_binary_alarm, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
