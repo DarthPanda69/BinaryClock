@@ -99,26 +99,28 @@ public class BinaryClockFragment extends Fragment {
     }
 
     private void applyClockState(final ClockState toApply) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                for(int i = 0; i < 5; i++) {
-                    if(toApply.getHourState()[i])
-                        hours[i].setBackgroundResource(R.color.clockHours);
+        if(getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < 5; i++) {
+                        if (toApply.getHourState()[i])
+                            hours[i].setBackgroundResource(R.color.clockHours);
+                        else
+                            hours[i].setBackgroundResource(R.color.clockInactive);
+                    }
+                    for (int i = 0; i < 6; i++) {
+                        if (toApply.getMinuteState()[i])
+                            minutes[i].setBackgroundResource(R.color.clockMinutes);
+                        else
+                            minutes[i].setBackgroundResource(R.color.clockInactive);
+                    }
+                    if (Build.VERSION.SDK_INT >= 24)
+                        seconds.setProgress(toApply.getMilliseconds() / 100, true);
                     else
-                        hours[i].setBackgroundResource(R.color.clockInactive);
+                        seconds.setProgress(toApply.getMilliseconds() / 100);
                 }
-                for(int i = 0; i < 6; i++) {
-                    if(toApply.getMinuteState()[i])
-                        minutes[i].setBackgroundResource(R.color.clockMinutes);
-                    else
-                        minutes[i].setBackgroundResource(R.color.clockInactive);
-                }
-                if(Build.VERSION.SDK_INT >= 24)
-                    seconds.setProgress(toApply.getMilliseconds() / 100, true);
-                else
-                    seconds.setProgress(toApply.getMilliseconds() / 100);
-            }
-        });
+            });
+        }
     }
 }

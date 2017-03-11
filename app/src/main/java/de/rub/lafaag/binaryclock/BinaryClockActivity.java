@@ -52,6 +52,9 @@ public class BinaryClockActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        //Set these beautiful tiny icons
+        setTabIcons();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +89,14 @@ public class BinaryClockActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setTabIcons() {
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tabs);
+        for(int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+            if(mSectionsPagerAdapter.getPageIconResource(i) > 0)
+                tabLayout.getTabAt(i).setIcon(mSectionsPagerAdapter.getPageIconResource(i));
+        }
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -111,17 +122,21 @@ public class BinaryClockActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) { // Selection Text
-            switch (position) {
+            return "";
+        }
+
+        int getPageIconResource(int position) {
+            switch(position) {
                 case 0:
-                    return "Timer";
+                    return R.drawable.ic_timer_black_48dp;
                 case 1:
-                    return "Clock";
+                    return R.drawable.ic_access_time_black_48dp;
                 case 2:
-                    return "Alarm";
+                    return R.drawable.ic_alarm_black_48dp;
                 case 3:
-                    return "About LaFaaG";
+                    return R.drawable.ic_info_black_48dp;
             }
-            return null;
+            return -1;
         }
     }
 }
