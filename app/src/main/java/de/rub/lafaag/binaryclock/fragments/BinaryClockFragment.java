@@ -20,11 +20,6 @@ import de.rub.lafaag.binaryclock.R;
  */
 
 public class BinaryClockFragment extends Fragment {
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
-    private static final String ARG_SECTION_NUMBER = "section_number";
 
     private TextView[] hours;
     private TextView[] minutes;
@@ -41,61 +36,42 @@ public class BinaryClockFragment extends Fragment {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static BinaryClockFragment newInstance(int sectionNumber) {
-        BinaryClockFragment fragment = new BinaryClockFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
+    public static BinaryClockFragment newInstance() {
+        return new BinaryClockFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_binary_clock, container, false);
 
-        if(getArguments().getInt(ARG_SECTION_NUMBER)==1) {
-            View rootView = inflater.inflate(R.layout.fragment_binary_timer, container, false);
-            return rootView;
-        }
-        else if (getArguments().getInt(ARG_SECTION_NUMBER)==2) {
+        hours = new TextView[5];
+        minutes = new TextView[6];
 
-            View rootView = inflater.inflate(R.layout.fragment_binary_clock, container, false);
+        hours[0] = (TextView) rootView.findViewById(R.id.hours1);
+        hours[1] = (TextView) rootView.findViewById(R.id.hours2);
+        hours[2] = (TextView) rootView.findViewById(R.id.hours4);
+        hours[3] = (TextView) rootView.findViewById(R.id.hours8);
+        hours[4] = (TextView) rootView.findViewById(R.id.hours16);
 
-            hours = new TextView[5];
-            minutes = new TextView[6];
+        minutes[0] = (TextView) rootView.findViewById(R.id.minutes1);
+        minutes[1] = (TextView) rootView.findViewById(R.id.minutes2);
+        minutes[2] = (TextView) rootView.findViewById(R.id.minutes4);
+        minutes[3] = (TextView) rootView.findViewById(R.id.minutes8);
+        minutes[4] = (TextView) rootView.findViewById(R.id.minutes16);
+        minutes[5] = (TextView) rootView.findViewById(R.id.minutes32);
 
-            hours[0] = (TextView) rootView.findViewById(R.id.hours1);
-            hours[1] = (TextView) rootView.findViewById(R.id.hours2);
-            hours[2] = (TextView) rootView.findViewById(R.id.hours4);
-            hours[3] = (TextView) rootView.findViewById(R.id.hours8);
-            hours[4] = (TextView) rootView.findViewById(R.id.hours16);
+        seconds = (ProgressBar) rootView.findViewById(R.id.seconds);
 
-            minutes[0] = (TextView) rootView.findViewById(R.id.minutes1);
-            minutes[1] = (TextView) rootView.findViewById(R.id.minutes2);
-            minutes[2] = (TextView) rootView.findViewById(R.id.minutes4);
-            minutes[3] = (TextView) rootView.findViewById(R.id.minutes8);
-            minutes[4] = (TextView) rootView.findViewById(R.id.minutes16);
-            minutes[5] = (TextView) rootView.findViewById(R.id.minutes32);
+        appTimer = new Timer(false);
+        appTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                applyClockState(ClockState.getCurrentClockState());
+            }
+        }, 0, 100);
 
-            seconds = (ProgressBar) rootView.findViewById(R.id.seconds);
-
-            appTimer = new Timer(false);
-            appTimer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    applyClockState(ClockState.getCurrentClockState());
-                }
-            }, 0, 100);
-
-            return rootView;
-        }
-        else if (getArguments().getInt(ARG_SECTION_NUMBER)==3) {
-            View rootView = inflater.inflate(R.layout.fragment_binary_alarm, container, false);
-            return rootView;
-        }
-        else {
-            return null;
-        }
+        return rootView;
     }
 
     private void applyClockState(final ClockState toApply) {

@@ -1,8 +1,7 @@
 package de.rub.lafaag.binaryclock;
 
-import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -13,9 +12,10 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
+import de.rub.lafaag.binaryclock.fragments.BinaryAlarmFragment;
 import de.rub.lafaag.binaryclock.fragments.BinaryClockFragment;
+import de.rub.lafaag.binaryclock.fragments.BinaryTimerFragment;
 
 public class BinaryClockActivity extends AppCompatActivity {
 
@@ -51,19 +51,27 @@ public class BinaryClockActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.getTabAt(Pages.CLOCK).select();
 
-        //Set these beautiful tiny icons
-        setTabIcons();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onPageScrolled(int i, float v, int i1) {
+                //Nothing to do here
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                updateFabLayout(i);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
             }
         });
 
+        //Set these beautiful tiny icons
+        setTabIcons();
     }
 
 
@@ -97,6 +105,14 @@ public class BinaryClockActivity extends AppCompatActivity {
         }
     }
 
+    private void updateFabLayout(int newPage) {
+        FloatingActionButton fab = ((FloatingActionButton)findViewById(R.id.fab));
+        if(newPage != Pages.ALARM)
+            fab.hide();
+        else
+            fab.show();
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -109,9 +125,18 @@ public class BinaryClockActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return BinaryClockFragment.newInstance(position + 1);
+            switch(position) {
+                case Pages.TIMER:
+                    return BinaryTimerFragment.newInstance();
+                case Pages.CLOCK:
+                    return BinaryClockFragment.newInstance();
+                case Pages.ALARM:
+                    return BinaryAlarmFragment.newInstance();
+                case Pages.ABOUT:
+                    //TODO: Replace with "About LafaaG" fragment
+                    return BinaryClockFragment.newInstance();
+            }
+            return null;
         }
 
         @Override
@@ -127,16 +152,23 @@ public class BinaryClockActivity extends AppCompatActivity {
 
         int getPageIconResource(int position) {
             switch(position) {
-                case 0:
+                case Pages.TIMER:
                     return R.drawable.ic_timer_black_48dp;
-                case 1:
+                case Pages.CLOCK:
                     return R.drawable.ic_access_time_black_48dp;
-                case 2:
+                case Pages.ALARM:
                     return R.drawable.ic_alarm_black_48dp;
-                case 3:
+                case Pages.ABOUT:
                     return R.drawable.ic_info_black_48dp;
             }
             return -1;
         }
+    }
+
+    static class Pages {
+        static final int TIMER = 0;
+        static final int CLOCK = 1;
+        static final int ALARM = 2;
+        static final int ABOUT = 3;
     }
 }
