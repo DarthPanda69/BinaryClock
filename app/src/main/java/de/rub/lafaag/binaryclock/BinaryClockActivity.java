@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import de.rub.lafaag.binaryclock.fragments.AboutLafaagFragment;
 import de.rub.lafaag.binaryclock.fragments.BinaryAlarmFragment;
 import de.rub.lafaag.binaryclock.fragments.BinaryClockFragment;
 import de.rub.lafaag.binaryclock.fragments.BinaryTimerFragment;
@@ -133,8 +134,7 @@ public class BinaryClockActivity extends AppCompatActivity {
                 case Pages.ALARM:
                     return BinaryAlarmFragment.newInstance();
                 case Pages.ABOUT:
-                    //TODO: Replace with "About LafaaG" fragment
-                    return BinaryClockFragment.newInstance();
+                    return AboutLafaagFragment.newInstance();
             }
             return null;
         }
