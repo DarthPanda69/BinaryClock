@@ -153,13 +153,13 @@ public class BinaryClockActivity extends AppCompatActivity {
         int getPageIconResource(int position) {
             switch(position) {
                 case Pages.TIMER:
-                    return R.drawable.ic_timer_black_48dp;
+                    return R.drawable.ic_timer_white_48dp;
                 case Pages.CLOCK:
-                    return R.drawable.ic_access_time_black_48dp;
+                    return R.drawable.ic_access_time_white_48dp;
                 case Pages.ALARM:
-                    return R.drawable.ic_alarm_black_48dp;
+                    return R.drawable.ic_alarm_white_48dp;
                 case Pages.ABOUT:
-                    return R.drawable.ic_info_black_48dp;
+                    return R.drawable.ic_info_outline_white_48dp;
             }
             return -1;
         }
