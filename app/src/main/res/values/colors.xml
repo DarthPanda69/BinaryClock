@@ -9,4 +9,7 @@
     <color name="clockMinutes">#64dd17</color>
     <color name="clockHours">#2962ff</color>
     <color name="clockInactive">#666666</color>
+
+    <color name="tabActive">#FFFFFF</color>
+    <color name="tabInactive">#AAAAAA</color>
 </resources>

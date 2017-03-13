@@ -1,7 +1,9 @@
 package de.rub.lafaag.binaryclock;
 
+import android.graphics.PorterDuff;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.app.Fragment;
@@ -27,6 +29,7 @@ public class BinaryClockActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private TabLayout tabLayout;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -46,29 +49,30 @@ public class BinaryClockActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        tabLayout.getTabAt(Pages.CLOCK).select();
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        //Set these beautiful tiny icons
+        setTabIcons();
+        //Update ActionButton per tab and highlight current tab
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) {
-                //Nothing to do here
+            public void onTabSelected(TabLayout.Tab tab) {
+                updateFabLayout(tab.getPosition());
+                tab.getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.tabActive), PorterDuff.Mode.SRC_IN);
             }
 
             @Override
-            public void onPageSelected(int i) {
-                updateFabLayout(i);
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.tabInactive), PorterDuff.Mode.SRC_IN);
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) {
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
-
-        //Set these beautiful tiny icons
-        setTabIcons();
+        //Select clock as startpage
+        tabLayout.getTabAt(Pages.CLOCK).select();
     }
 
 
@@ -82,8 +86,11 @@ public class BinaryClockActivity extends AppCompatActivity {
     private void setTabIcons() {
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tabs);
         for(int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            if(mSectionsPagerAdapter.getPageIconResource(i) > 0)
+            if(mSectionsPagerAdapter.getPageIconResource(i) > 0) {
                 tabLayout.getTabAt(i).setIcon(mSectionsPagerAdapter.getPageIconResource(i));
+                //Add filter for inactive tab
+                tabLayout.getTabAt(i).getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.tabInactive), PorterDuff.Mode.SRC_IN);
+            }
         }
     }
 
