@@ -1,5 +1,6 @@
 package de.rub.lafaag.binaryclock.fragments;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,20 +21,24 @@ import de.rub.lafaag.binaryclock.R;
 
 public class BinaryClockFragment extends Fragment {
 
-    private TextView[] hours;
-    private TextView[] minutes;
-
-    private ProgressBar seconds;
-
-    private Timer appTimer;
-
-    public BinaryClockFragment() {
-
-    }
+    private int[] hours = {
+            R.id.hours1,
+            R.id.hours2,
+            R.id.hours4,
+            R.id.hours8,
+            R.id.hours16
+    };
+    private int[] minutes = {
+            R.id.minutes1,
+            R.id.minutes2,
+            R.id.minutes4,
+            R.id.minutes8,
+            R.id.minutes16,
+            R.id.minutes32
+    };
 
     /**
-     * Returns a new instance of this fragment for the given section
-     * number.
+     * Returns a new instance of this fragment
      */
     public static BinaryClockFragment newInstance() {
         return new BinaryClockFragment();
@@ -45,25 +49,7 @@ public class BinaryClockFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_binary_clock, container, false);
 
-        hours = new TextView[5];
-        minutes = new TextView[6];
-
-        hours[0] = (TextView) rootView.findViewById(R.id.hours1);
-        hours[1] = (TextView) rootView.findViewById(R.id.hours2);
-        hours[2] = (TextView) rootView.findViewById(R.id.hours4);
-        hours[3] = (TextView) rootView.findViewById(R.id.hours8);
-        hours[4] = (TextView) rootView.findViewById(R.id.hours16);
-
-        minutes[0] = (TextView) rootView.findViewById(R.id.minutes1);
-        minutes[1] = (TextView) rootView.findViewById(R.id.minutes2);
-        minutes[2] = (TextView) rootView.findViewById(R.id.minutes4);
-        minutes[3] = (TextView) rootView.findViewById(R.id.minutes8);
-        minutes[4] = (TextView) rootView.findViewById(R.id.minutes16);
-        minutes[5] = (TextView) rootView.findViewById(R.id.minutes32);
-
-        seconds = (ProgressBar) rootView.findViewById(R.id.seconds);
-
-        appTimer = new Timer(false);
+        Timer appTimer = new Timer(false);
         appTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -75,26 +61,30 @@ public class BinaryClockFragment extends Fragment {
     }
 
     private void applyClockState(final ClockState toApply) {
-        if(getActivity() != null) {
-            getActivity().runOnUiThread(new Runnable() {
+        final View fragmentView = getView();
+        Activity fragmentActivity = getActivity();
+        if(fragmentActivity != null && fragmentView != null) {
+            fragmentActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    //Apply hours
                     for (int i = 0; i < 5; i++) {
                         if (toApply.getHourState()[i])
-                            hours[i].setBackgroundResource(R.color.clockHours);
+                            fragmentView.findViewById(hours[i]).setBackgroundResource(R.color.clockHours);
                         else
-                            hours[i].setBackgroundResource(R.color.clockInactive);
+                            fragmentView.findViewById(hours[i]).setBackgroundResource(R.color.clockInactive);
                     }
+                    //Apply minutes
                     for (int i = 0; i < 6; i++) {
                         if (toApply.getMinuteState()[i])
-                            minutes[i].setBackgroundResource(R.color.clockMinutes);
+                            fragmentView.findViewById(minutes[i]).setBackgroundResource(R.color.clockMinutes);
                         else
-                            minutes[i].setBackgroundResource(R.color.clockInactive);
+                            fragmentView.findViewById(minutes[i]).setBackgroundResource(R.color.clockInactive);
                     }
                     if (Build.VERSION.SDK_INT >= 24)
-                        seconds.setProgress(toApply.getMilliseconds() / 100, true);
+                        ((ProgressBar)fragmentView.findViewById(R.id.seconds)).setProgress(toApply.getMilliseconds() / 100, true);
                     else
-                        seconds.setProgress(toApply.getMilliseconds() / 100);
+                        ((ProgressBar)fragmentView.findViewById(R.id.seconds)).setProgress(toApply.getMilliseconds() / 100);
                 }
             });
         }
