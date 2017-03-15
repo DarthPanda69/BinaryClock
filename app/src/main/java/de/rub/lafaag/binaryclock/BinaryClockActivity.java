@@ -1,6 +1,11 @@
 package de.rub.lafaag.binaryclock;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -13,11 +18,14 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 
+import java.util.Calendar;
+
 import de.rub.lafaag.binaryclock.fragments.AboutLafaagFragment;
 import de.rub.lafaag.binaryclock.fragments.BinaryAlarmFragment;
 import de.rub.lafaag.binaryclock.fragments.BinaryClockFragment;
 import de.rub.lafaag.binaryclock.fragments.BinaryStopwatchFragment;
 import de.rub.lafaag.binaryclock.fragments.BinaryTimerFragment;
+import de.rub.lafaag.binaryclock.widget.ClockAppWidgetProvider;
 
 public class BinaryClockActivity extends AppCompatActivity {
 
@@ -74,6 +82,8 @@ public class BinaryClockActivity extends AppCompatActivity {
         });
         //Select clock as startpage
         tabLayout.getTabAt(Pages.CLOCK).select();
+
+        ClockAppWidgetProvider.setAlarmToNextMinute(this);
     }
 
 

@@ -7,4 +7,7 @@
 
     <dimen name="clock_hours_size">24dp</dimen>
     <dimen name="clock_minutes_size">19dp</dimen>
+
+    <dimen name="widget_clock_hours_margin">27dp</dimen>
+    <dimen name="widget_clock_minutes_top_margin">30dp</dimen>
 </resources>
