@@ -44,7 +44,7 @@ public class ClockAppWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        if(intent.getAction().equals(ACTION_REFRESH_WIDGET)) {
+        if(intent.getAction().equals(ACTION_REFRESH_WIDGET) || intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             ComponentName clockWidget = new ComponentName(context.getPackageName(), ClockAppWidgetProvider.class.getName());
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(clockWidget);
