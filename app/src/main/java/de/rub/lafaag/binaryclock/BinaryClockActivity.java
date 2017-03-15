@@ -16,6 +16,7 @@ import android.view.Menu;
 import de.rub.lafaag.binaryclock.fragments.AboutLafaagFragment;
 import de.rub.lafaag.binaryclock.fragments.BinaryAlarmFragment;
 import de.rub.lafaag.binaryclock.fragments.BinaryClockFragment;
+import de.rub.lafaag.binaryclock.fragments.BinaryStopwatchFragment;
 import de.rub.lafaag.binaryclock.fragments.BinaryTimerFragment;
 
 public class BinaryClockActivity extends AppCompatActivity {
@@ -86,8 +87,9 @@ public class BinaryClockActivity extends AppCompatActivity {
     private void setTabIcons() {
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tabs);
         for(int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            if(mSectionsPagerAdapter.getPageIconResource(i) > 0) {
-                tabLayout.getTabAt(i).setIcon(mSectionsPagerAdapter.getPageIconResource(i));
+            int iconResource = mSectionsPagerAdapter.getPageIconResource(i);
+            if(iconResource > 0) {
+                tabLayout.getTabAt(i).setIcon(iconResource);
                 //Add filter for inactive tab
                 tabLayout.getTabAt(i).getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.tabInactive), PorterDuff.Mode.SRC_IN);
             }
@@ -115,12 +117,14 @@ public class BinaryClockActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch(position) {
-                case Pages.TIMER:
-                    return BinaryTimerFragment.newInstance();
-                case Pages.CLOCK:
-                    return BinaryClockFragment.newInstance();
                 case Pages.ALARM:
                     return BinaryAlarmFragment.newInstance();
+                case Pages.CLOCK:
+                    return BinaryClockFragment.newInstance();
+                case Pages.TIMER:
+                    return BinaryTimerFragment.newInstance();
+                case Pages.STOPWATCH:
+                    return BinaryStopwatchFragment.newInstance();
                 case Pages.ABOUT:
                     return AboutLafaagFragment.newInstance();
             }
@@ -129,8 +133,8 @@ public class BinaryClockActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 4 total pages.
-            return 4;
+            // Show 5 total pages.
+            return 5;
         }
 
         @Override
@@ -140,12 +144,14 @@ public class BinaryClockActivity extends AppCompatActivity {
 
         int getPageIconResource(int position) {
             switch(position) {
-                case Pages.TIMER:
-                    return R.drawable.ic_timer_white_48dp;
-                case Pages.CLOCK:
-                    return R.drawable.ic_access_time_white_48dp;
                 case Pages.ALARM:
                     return R.drawable.ic_alarm_white_48dp;
+                case Pages.CLOCK:
+                    return R.drawable.ic_access_time_white_48dp;
+                case Pages.TIMER:
+                    return R.drawable.ic_hourglass_empty_white_48dp;
+                case Pages.STOPWATCH:
+                    return R.drawable.ic_timer_white_48dp;
                 case Pages.ABOUT:
                     return R.drawable.ic_info_outline_white_48dp;
             }
@@ -154,9 +160,10 @@ public class BinaryClockActivity extends AppCompatActivity {
     }
 
     static class Pages {
-        static final int TIMER = 0;
+        static final int ALARM = 0;
         static final int CLOCK = 1;
-        static final int ALARM = 2;
-        static final int ABOUT = 3;
+        static final int TIMER = 2;
+        static final int STOPWATCH = 3;
+        static final int ABOUT = 4;
     }
 }
